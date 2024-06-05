@@ -17,7 +17,7 @@ import java.time.Duration;
 public class ContactFormSubmission {
     Faker faker;
     ContactUsPage cp = new ContactUsPage();
-    ;
+
     Select select;
     WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
 
