@@ -47,8 +47,8 @@ public class ContactFormSubmission {
         wait.until(ExpectedConditions.elementToBeClickable(cp.phoneField));
         cp.phoneField.sendKeys(faker.phoneNumber().cellPhone());
 
-        wait.until(ExpectedConditions.elementToBeClickable(cp.emailField));
-        cp.emailField.sendKeys(faker.internet().emailAddress());
+        //wait.until(ExpectedConditions.elementToBeClickable(cp.emailField));
+        //cp.emailField.sendKeys(faker.internet().emailAddress());
 
         wait.until(ExpectedConditions.elementToBeClickable(cp.companyField));
         cp.companyField.sendKeys(faker.company().name());
@@ -69,12 +69,12 @@ public class ContactFormSubmission {
 
 
     @Then("the user should see a message")
-    public void theUserShouldSeeAMessage() {
+    public void theUserShouldSeeAMessage() throws InterruptedException {
         String message = cp.messageAlert.getText();
-        Assert.assertEquals("Please use a business email address.", message);
+        Assert.assertEquals("Please include your Email Address", message);
         Assert.assertEquals(Driver.getDriver().getTitle(), ("Paze Questions? Want to Contact Us? Visit Our Help Center!"));
 
-
+        Thread.sleep(4000);
         Driver.getDriver().quit();
     }
 }

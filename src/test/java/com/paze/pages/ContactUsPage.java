@@ -36,7 +36,7 @@ public class ContactUsPage extends MainPage {
     @FindBy(xpath = "//input[@value='Submit']")
     public WebElement submitButton;
 
-    @FindBy(xpath = "//span[contains(text(), 'Please use a business email address.')]")
+    @FindBy(xpath = "//span[contains(text(), 'Please include your Email Address')]")
     public WebElement messageAlert;
 
 
