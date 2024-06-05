@@ -13,14 +13,6 @@ public abstract class MainPage {
     }
 
 
-    @FindBy(xpath = "//button[@id='hs-eu-confirmation-button']")
-    public WebElement cookieButton;
-
-
-    @FindBy(xpath = "//iframe[@style='display: none;']")
-    public WebElement iframe;
-
-
 
 
 

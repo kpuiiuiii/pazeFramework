@@ -5,7 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-public class ContactUsPage extends MainPage{
+public class ContactUsPage extends MainPage {
 
 
     public ContactUsPage() {
@@ -13,28 +13,31 @@ public class ContactUsPage extends MainPage{
     }
 
 
-    @FindBy(xpath = "//input[@name='firstname']")
+    @FindBy(xpath = "//select[@name='paze_segmentSelect']")
+    public WebElement distributorField;
+
+    @FindBy(xpath = "//input[@name='firstName']")
     public WebElement fNameField;
-    @FindBy(xpath = "//input[@name='lastname']")
+
+    @FindBy(xpath = "//input[@name='lastName']")
     public WebElement lNameField;
-    @FindBy(xpath = "//input[@name='email']")
+
+    @FindBy(xpath = "//input[@name='mobilePhone']")
+    public WebElement phoneField;
+
+    @FindBy(xpath = "//input[@name='emailAddress']")
     public WebElement emailField;
+
     @FindBy(xpath = "//input[@name='company']")
     public WebElement companyField;
 
-    @FindBy(xpath = "//select[@name='industries']")
-    public WebElement industryField;
-
-    @FindBy(xpath = "//input[@value='Get Started']")
+    @FindBy(xpath = "//input[@name='title']")
+    public WebElement titleField;
+    @FindBy(xpath = "//input[@value='Submit']")
     public WebElement submitButton;
-    @FindBy(xpath = "//label[contains(text(), 'Please complete all required fields.')]")
+
+    @FindBy(xpath = "//span[contains(text(), 'Please use a business email address.')]")
     public WebElement messageAlert;
-
-
-
-
-
-
 
 
 }
