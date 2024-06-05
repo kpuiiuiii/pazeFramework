@@ -8,13 +8,16 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
-import org.openqa.selenium.support.ui.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
 public class ContactFormSubmission {
-    Faker faker = new Faker();
+    Faker faker;
     ContactUsPage cp = new ContactUsPage();
+    ;
     Select select;
     WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(5));
 
@@ -22,17 +25,18 @@ public class ContactFormSubmission {
     public void the_user_is_on_the_page(String string) {
 
         Driver.getDriver().get(ConfigurationReader.getProperty("env"));
-        Assert.assertEquals(Driver.getDriver().getTitle(), ("Contact us | SteadyIQ"));
-        wait.until(ExpectedConditions.elementToBeClickable(cp.cookieButton));
-        cp.cookieButton.click();
-
+        Assert.assertEquals(Driver.getDriver().getTitle(), ("Paze Questions? Want to Contact Us? Visit Our Help Center!"));
 
     }
 
     @When("the user enters random test data for the form")
     public void the_user_enters_random_test_data_for_the_form() {
-        select = new Select(cp.industryField);
+        cp = new ContactUsPage();
+        select = new Select(cp.distributorField);
+        faker = new Faker();
 
+        wait.until(ExpectedConditions.elementToBeClickable(cp.distributorField));
+        select.selectByIndex(1);
 
         wait.until(ExpectedConditions.elementToBeClickable(cp.fNameField));
         cp.fNameField.sendKeys(faker.name().firstName());
@@ -40,17 +44,24 @@ public class ContactFormSubmission {
         wait.until(ExpectedConditions.elementToBeClickable(cp.lNameField));
         cp.lNameField.sendKeys(faker.name().lastName());
 
-        wait.until(ExpectedConditions.elementToBeClickable(cp.industryField));
-        select.selectByIndex(1);
+        wait.until(ExpectedConditions.elementToBeClickable(cp.phoneField));
+        cp.phoneField.sendKeys(faker.phoneNumber().cellPhone());
 
+        wait.until(ExpectedConditions.elementToBeClickable(cp.emailField));
+        cp.emailField.sendKeys(faker.internet().emailAddress());
 
-        //cp.emailField.sendKeys(faker.internet().emailAddress());
+        wait.until(ExpectedConditions.elementToBeClickable(cp.companyField));
+        cp.companyField.sendKeys(faker.company().name());
+
+        wait.until(ExpectedConditions.elementToBeClickable(cp.titleField));
+        cp.titleField.sendKeys(faker.name().title());
 
 
     }
 
     @When("the user presses the {string} button")
     public void the_user_presses_the_button(String submit) {
+        cp = new ContactUsPage();
         wait.until(ExpectedConditions.elementToBeClickable(cp.submitButton));
         cp.submitButton.click();
 
@@ -60,7 +71,9 @@ public class ContactFormSubmission {
     @Then("the user should see a message")
     public void theUserShouldSeeAMessage() {
         String message = cp.messageAlert.getText();
-        Assert.assertEquals("Please complete all required fields.", message);
+        Assert.assertEquals("Please use a business email address.", message);
+        Assert.assertEquals(Driver.getDriver().getTitle(), ("Paze Questions? Want to Contact Us? Visit Our Help Center!"));
+
 
         Driver.getDriver().quit();
     }
